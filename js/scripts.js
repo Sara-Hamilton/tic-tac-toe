@@ -14,6 +14,11 @@ function Board() {
   this.trios = [this.row1, this.row2, this.row3, this.column1, this.column2, this.column3, this.diagonal1, this.diagonal2];
 }
 
+function Player(name, symbol) {
+  this.name = name;
+  this.symbol = symbol;
+}
+
 Board.prototype.winCheck = function() {
   this.trios.forEach(function(trio) {
     if ((trio[0].marker !== "") && (trio[0].marker === trio[1].marker) && (trio[1].marker === trio[2].marker)) {
@@ -22,7 +27,6 @@ Board.prototype.winCheck = function() {
     }
   })
 }
-
 
 Board.prototype.gameOverCheck = function() {
   for (var i = 0; i < this.trios.length; i++) {
