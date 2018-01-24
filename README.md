@@ -1,34 +1,20 @@
-# Webpage Template
+# Tic Tac Toe
 
-#### template to be used for creating new websites, 1-9-18
+#### Tic-Tac-Toe game, 1-24-18
 
-#### _By Sara Hamilton_
+#### _By Sara Hamilton and Ian Goodrich_
 
 ## Description
 
-_{This is a detailed description of your application, its purpose and usage.  Give as much detail as needed to explain what the application does, and any other information you want users or other developers to have. }_
+_This is a tic-tac-toe game._
 
 ## Setup/Installation Requirements
 
-* _Create a new repository in GitHub_
-```
-https://github.com/user-name/new-repository-name.git
-```
+* _clone repository_
 
-* _Create a bare clone of this repository_
-```
-git clone --bare https://github.com/Sara-Hamilton/template.git
-```
+* _open in text editor_
 
-* _Move into the template directory_
-```
-cd template.git
-```
-
-* _Mirror push to the new repository_
-```
-git push --mirror https://github.com/user-name/new-repository-name.git
-```
+* _open in browser_
 
 ## Support and contact details
 
@@ -45,7 +31,7 @@ _To suggest changes, submit a pull request in the GitHub repository._
 
 *MIT License*
 
-Copyright (c) 2018 **_Sara Hamilton_**
+Copyright (c) 2018 **_Sara Hamilton and Ian Goodrich_**
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
