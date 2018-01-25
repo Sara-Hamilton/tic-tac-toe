@@ -30,10 +30,16 @@ function Player(name, symbol) {
   this.symbol = symbol;
 }
 
+function Game() {
+  this.turn = 1;
+  this.mark = "X"
+}
+
 Board.prototype.winCheck = function() {
   this.trios.forEach(function(trio) {
     if ((trio[0].marker !== "") && (trio[0].marker === trio[1].marker) && (trio[1].marker === trio[2].marker)) {
       var winner = trio[0].marker;
+      console.log(winner);
       return winner;
     }
   });
@@ -51,27 +57,52 @@ Board.prototype.gameOverCheck = function() {
   }
 }
 
-Board.prototype.markClickedSquare = function(clickedSquare) {
+Board.prototype.markClickedSquare = function(clickedSquare, mark) {
   this.squares.forEach(function(square){
     if (square.name === clickedSquare){
       var targetSquare = square;
-      targetSquare.marker = "X";
-      $("#" + clickedSquare).text("X");
+      targetSquare.marker = mark;
+      $("#" + clickedSquare).text(mark);
     }
   });
 }
 
+Game.prototype.getTurn = function() {
+  return this.turn;
+}
 
+Game.prototype.setNextTurn = function() {
+  this.turn = this.turn + 1;
+  return this.turn;
+}
 
+Game.prototype.getMark = function() {
+  return this.mark;
+}
 
-var game = new Board();
-// game.row1[2].marker = "O";
-// game.row2[1].marker = "O";
-// game.row3[0].marker = "O";
+Game.prototype.setMark = function() {
+  if (this.turn % 2 !== 0) {
+    this.mark = "X"
+  } else {
+    this.mark = "O"
+  }
+  return this.mark;
+}
+// Game function(){
+//     for (var turn = 1; win === false; turn ++){
+//       if (turn <=9){
+//         whichPlayer(turn)
+//       }
+//     }
+// }
+//
+
+var newGame = new Game();
+var gameBoard = new Board();
 
 // gameBoard.push(game)
 // game.winCheck();
-game.gameOverCheck();
+gameBoard.gameOverCheck();
 // game.findClickedSquare();
 
 $('document').ready(function() {
@@ -83,10 +114,19 @@ $('document').ready(function() {
     $("#board").delay(300).fadeIn(300, "swing");
     var playerX = new Player(playerXName, "X");
     var playerO = new Player(playerOName, "O");
+      });
+    // });
+
     $(".square").click(function() {
+      turn = newGame.getTurn();
+      mark = newGame.getMark();
       var clickedSquare  = $(this).attr('id');
-      game.markClickedSquare(clickedSquare);
+      gameBoard.markClickedSquare(clickedSquare, mark);
+      gameBoard.winCheck();
+      newGame.setNextTurn();
+      newGame.setMark();
       });
 
+
     });
-});
+// });
