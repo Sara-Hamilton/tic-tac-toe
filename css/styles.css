@@ -6,6 +6,10 @@
   border: 5px solid black;
   background-color: aliceblue;
   height: 25rem;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 25rem;
+  font-size: 15rem;
 }
 
 #board {
