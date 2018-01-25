@@ -4,6 +4,8 @@ function Square(name) {
 }
 
 function Board() {
+  this.turn = 1;
+  this.mark = "X"
   this.square1 = new Square("square1");
   this.square2 = new Square("square2");
   this.square3 = new Square("square3");
@@ -25,62 +27,44 @@ function Board() {
   this.trios = [this.row1, this.row2, this.row3, this.column1, this.column2, this.column3, this.diagonal1, this.diagonal2];
 }
 
-function Player(name, symbol) {
-  this.name = name;
-  this.symbol = symbol;
-}
+Board.prototype.winCheck = function(gameBoard) {
 
-function Game() {
-  this.turn = 1;
-  this.mark = "X"
-}
-
-Board.prototype.winCheck = function() {
   this.trios.forEach(function(trio) {
     if ((trio[0].marker !== "") && (trio[0].marker === trio[1].marker) && (trio[1].marker === trio[2].marker)) {
-      var winner = trio[0].marker;
-      console.log(winner);
-      return winner;
-    }
-  });
-}
-
-Board.prototype.gameOverCheck = function() {
-  for (var i = 0; i < this.trios.length; i++) {
-    for (var j = 0; j < 3; j++) {
-      if (this.trios[i][j].marker === "") {
-        return false;
-      } else {
-        return true;
-      }
-    }
+      winner = trio[0].marker;
+      $("#winner").text("The Winner is " + winner + "!");
   }
+})
 }
-
-Board.prototype.markClickedSquare = function(clickedSquare, mark) {
+Board.prototype.markClickedSquare = function(clickedSquare, mark, gameBoard) {
   this.squares.forEach(function(square){
     if (square.name === clickedSquare){
       var targetSquare = square;
-      targetSquare.marker = mark;
-      $("#" + clickedSquare).text(mark);
+      if (targetSquare.marker !== "") {
+        gameBoard.setNextTurn(-1);
+        return
+      } else {
+        targetSquare.marker = mark;
+        $("#" + clickedSquare).text(mark);
+      }
     }
   });
 }
 
-Game.prototype.getTurn = function() {
+Board.prototype.getTurn = function() {
   return this.turn;
 }
 
-Game.prototype.setNextTurn = function() {
-  this.turn = this.turn + 1;
+Board.prototype.setNextTurn = function(amount) {
+  this.turn = this.turn + amount;
   return this.turn;
 }
 
-Game.prototype.getMark = function() {
+Board.prototype.getMark = function() {
   return this.mark;
 }
 
-Game.prototype.setMark = function() {
+Board.prototype.setMark = function() {
   if (this.turn % 2 !== 0) {
     this.mark = "X"
   } else {
@@ -88,45 +72,23 @@ Game.prototype.setMark = function() {
   }
   return this.mark;
 }
-// Game function(){
-//     for (var turn = 1; win === false; turn ++){
-//       if (turn <=9){
-//         whichPlayer(turn)
-//       }
-//     }
-// }
-//
-
-var newGame = new Game();
-var gameBoard = new Board();
-
-// gameBoard.push(game)
-// game.winCheck();
-gameBoard.gameOverCheck();
-// game.findClickedSquare();
 
 $('document').ready(function() {
-  $("#playerForm").submit(function(event) {
-    event.preventDefault();
-    var playerXName = $("#playerX").val();
-    var playerOName = $("#playerO").val();
-    $("#playerForm").fadeOut(300, "swing");
-    $("#board").delay(300).fadeIn(300, "swing");
-    var playerX = new Player(playerXName, "X");
-    var playerO = new Player(playerOName, "O");
-      });
-    // });
 
-    $(".square").click(function() {
-      turn = newGame.getTurn();
-      mark = newGame.getMark();
-      var clickedSquare  = $(this).attr('id');
-      gameBoard.markClickedSquare(clickedSquare, mark);
-      gameBoard.winCheck();
-      newGame.setNextTurn();
-      newGame.setMark();
-      });
+  var gameBoard = new Board();
+  var turn = gameBoard.getTurn();
+  var mark = gameBoard.getMark();
 
-
-    });
-// });
+  $(".square").click(function() {
+    turn = gameBoard.getTurn();
+    mark = gameBoard.getMark();
+    var clickedSquare = $(this).attr('id');
+    gameBoard.markClickedSquare(clickedSquare, mark, gameBoard);
+    gameBoard.setNextTurn(1);
+    gameBoard.setMark();
+    gameBoard.winCheck();
+    if ($("#winner").text().slice(0, 1) === "T") {
+      $(".square").off("click");
+    }
+  });
+});
