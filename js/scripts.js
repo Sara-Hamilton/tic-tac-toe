@@ -28,21 +28,20 @@ function Board() {
 }
 
 Board.prototype.winCheck = function(gameBoard) {
-
   this.trios.forEach(function(trio) {
     if ((trio[0].marker !== "") && (trio[0].marker === trio[1].marker) && (trio[1].marker === trio[2].marker)) {
       winner = trio[0].marker;
       $("#winner").text("The Winner is " + winner + "!");
-  }
-})
+    }
+  })
 }
+
 Board.prototype.markClickedSquare = function(clickedSquare, mark, gameBoard) {
-  this.squares.forEach(function(square){
-    if (square.name === clickedSquare){
+  this.squares.forEach(function(square) {
+    if (square.name === clickedSquare) {
       var targetSquare = square;
       if (targetSquare.marker !== "") {
         gameBoard.setNextTurn(-1);
-        return
       } else {
         targetSquare.marker = mark;
         $("#" + clickedSquare).text(mark);
@@ -74,14 +73,11 @@ Board.prototype.setMark = function() {
 }
 
 $('document').ready(function() {
-
   var gameBoard = new Board();
-  var turn = gameBoard.getTurn();
-  var mark = gameBoard.getMark();
 
   $(".square").click(function() {
-    turn = gameBoard.getTurn();
-    mark = gameBoard.getMark();
+    var turn = gameBoard.getTurn();
+    var mark = gameBoard.getMark();
     var clickedSquare = $(this).attr('id');
     gameBoard.markClickedSquare(clickedSquare, mark, gameBoard);
     gameBoard.setNextTurn(1);
