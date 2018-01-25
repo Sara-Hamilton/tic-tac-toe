@@ -13,6 +13,7 @@ function Board() {
   this.square7 = new Square("square7");
   this.square8 = new Square("square8");
   this.square9 = new Square("square9");
+  this.squares = [this.square1, this.square2, this.square3, this.square4, this.square5, this.square6, this.square7, this.square8, this.square9];
   this.row1 = [this.square1, this.square2, this.square3];
   this.row2 = [this.square4, this.square5, this.square6];
   this.row3 = [this.square7, this.square8, this.square9];
@@ -35,7 +36,7 @@ Board.prototype.winCheck = function() {
       var winner = trio[0].marker;
       return winner;
     }
-  })
+  });
 }
 
 Board.prototype.gameOverCheck = function() {
@@ -50,36 +51,28 @@ Board.prototype.gameOverCheck = function() {
   }
 }
 
-
-
-
-
-// for (square in test4){
-// console.log(test4[square].marker)
-// }
-// if (test4.square1.marker === "X" && test4.square2.marker === "X" && test4.square3.marker === "X"){
-// console.log("YAY!")
-// }
-//
-// for (let square in test4){
-// console.log(test4[square])
-// }
-
-
-
-
+Board.prototype.markClickedSquare = function(clickedSquare) {
+  this.squares.forEach(function(square){
+    if (square.name === clickedSquare){
+      var targetSquare = square;
+      targetSquare.marker = "X";
+      $("#" + clickedSquare).text("X");
+    }
+  });
+}
 
 
 
 
 var game = new Board();
-game.row1[2].marker = "O";
-game.row2[1].marker = "O";
-game.row3[0].marker = "O";
+// game.row1[2].marker = "O";
+// game.row2[1].marker = "O";
+// game.row3[0].marker = "O";
 
 // gameBoard.push(game)
 // game.winCheck();
 game.gameOverCheck();
+// game.findClickedSquare();
 
 $('document').ready(function() {
   $("#playerForm").submit(function(event) {
@@ -92,8 +85,7 @@ $('document').ready(function() {
     var playerO = new Player(playerOName, "O");
     $(".square").click(function() {
       var clickedSquare  = $(this).attr('id');
-      // write function to iterate through squares and find the one whose name === clickedSquare
-      console.log(clickedSquare === game.square1.name);
+      game.markClickedSquare(clickedSquare);
       });
 
     });
