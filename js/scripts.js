@@ -66,8 +66,10 @@ Board.prototype.getMark = function() {
 Board.prototype.setMark = function() {
   if (this.turn % 2 !== 0) {
     this.mark = "X"
+    $(".bg-image").css("background-image", "url(./img/letter-x15.png)");
   } else {
     this.mark = "O"
+    $(".bg-image").css("background-image", "url(./img/swoop.png)");
   }
   return this.mark;
 }
@@ -80,11 +82,16 @@ $('document').ready(function() {
     var mark = gameBoard.getMark();
     var clickedSquare = $(this).attr('id');
     gameBoard.markClickedSquare(clickedSquare, mark, gameBoard);
-    gameBoard.setNextTurn(1);
-    gameBoard.setMark();
+    // gameBoard.setNextTurn(1);
+    // gameBoard.setMark();
     gameBoard.winCheck();
     if ($("#winner").text().slice(0, 1) === "T") {
       $(".square").off("click");
+    } else {
+      gameBoard.setNextTurn(1);
+      gameBoard.setMark();
     }
+    // gameBoard.setNextTurn(1);
+    // gameBoard.setMark();
   });
 });
