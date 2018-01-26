@@ -82,8 +82,6 @@ $('document').ready(function() {
     var mark = gameBoard.getMark();
     var clickedSquare = $(this).attr('id');
     gameBoard.markClickedSquare(clickedSquare, mark, gameBoard);
-    // gameBoard.setNextTurn(1);
-    // gameBoard.setMark();
     gameBoard.winCheck();
     if ($("#winner").text().slice(0, 1) === "T") {
       $(".square").off("click");
@@ -91,7 +89,5 @@ $('document').ready(function() {
       gameBoard.setNextTurn(1);
       gameBoard.setMark();
     }
-    // gameBoard.setNextTurn(1);
-    // gameBoard.setMark();
   });
 });
