@@ -1,6 +1,5 @@
 .jumbotron {
   text-align: center;
-  /*opacity: .7;*/
   background-color: rgba(16, 74, 102, 0.7);
   color: gainsboro;
   margin: 5rem auto 10rem auto;
@@ -16,17 +15,19 @@ body {
   z-index: 0;
   height: 100%;
   width: 100%;
-  background-image: url("../img/letter-x15.png");
+  background: url("../img/letter-x15.png") no-repeat center center;
   position: fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
   background-size: cover;
-  background-repeat: no-repeat;
 }
 
 #board {
   position: fixed;
   top: 50%;
   left: 50%;
-  margin-top: -18rem;
+  margin-top: -12rem;
   margin-left: -18vh;
 }
 
@@ -93,4 +94,5 @@ body {
     position: relative;
     left: 4rem;
     margin: -4rem 0;
+  }
 }
